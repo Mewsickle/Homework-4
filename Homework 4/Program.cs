@@ -292,6 +292,7 @@ namespace Homework_4
 
                 }
 
+                // совсем тут запутался с библиотеками. 
                 static void DemoArrayLib()
                 {
 

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework 4", "Homework 4\Homework 4.csproj", "{EF7FF7D8-DF9F-4E56-8A7E-72860654F5C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homework 4", "Homework 4\Homework 4.csproj", "{EF7FF7D8-DF9F-4E56-8A7E-72860654F5C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{162CC7F3-7812-40D3-8855-3CADDC2AA419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassLib", "MassLib\MassLib.csproj", "{8DEF45B5-CEED-493C-9631-5DF0056ADB4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,10 @@ Global
 		{EF7FF7D8-DF9F-4E56-8A7E-72860654F5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF7FF7D8-DF9F-4E56-8A7E-72860654F5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF7FF7D8-DF9F-4E56-8A7E-72860654F5C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DEF45B5-CEED-493C-9631-5DF0056ADB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DEF45B5-CEED-493C-9631-5DF0056ADB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DEF45B5-CEED-493C-9631-5DF0056ADB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DEF45B5-CEED-493C-9631-5DF0056ADB4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

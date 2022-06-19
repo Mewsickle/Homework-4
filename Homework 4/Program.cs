@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using MassLib;
 
 
 /*
@@ -25,11 +28,83 @@
  */
 namespace Homework_4
 {
+
     class MyArray
     {
         #region Private Fields
 
         private int[] array;
+
+        #endregion
+
+        #region StaticClass
+
+        static class StaticClass // 2 задание
+        {
+            public static int div;
+            public static int[] array;
+
+
+
+            public static void StaticArray(int count, int min, int max) //рандомизатор
+            {
+                array = new int[count];
+                Random random = new Random();
+                for (int i = 0; i < count; i++)
+                {
+
+                    array[i] = random.Next(min, max);
+                }
+
+            }
+
+
+
+
+            public static int DivX() //счетчик пар
+            {
+                int count = 0;
+                
+
+
+                for (int i = 0; i < array.Length - 1; i++)
+                {
+                    if (array[i] % div == 0 | array[i + 1] % div == 0)
+                    {
+                        count++;
+                        Console.WriteLine($"Пара чисел {array[i]} и {array[i + 1]}");
+                    }
+
+                }
+                Console.WriteLine($"Кол-во пар {count}");
+                return count;
+
+            }
+
+            public static void PrintArr() //вывод рандомного массива
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    Console.Write($"{array[i]}\t");
+                }
+                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
+            }
+
+            public static void ReadTxt()
+            {
+                StreamReader sr = new StreamReader("..\\..\\TestFile.txt");
+                int n = int.Parse(sr.ReadLine());
+                for (int i = 0; i < n; i++)
+                {
+                    int a = int.Parse(sr.ReadLine());
+                    Console.WriteLine(a);
+                }
+                sr.Close();
+            }
+
+
+
+        }
 
         #endregion
 
@@ -39,7 +114,7 @@ namespace Homework_4
             this.array = array;
         }
 
-        public MyArray(int count, int min, int max)
+        public MyArray(int count, int min, int max) // массив с рандомизатором
         {
             array = new int[count];
             Random random = new Random();
@@ -49,15 +124,24 @@ namespace Homework_4
                 array[i] = random.Next(min, max);
             }
         }
+        public MyArray(string fileName) //из файла
+        {
+            array = LoadArrayFromFile(fileName);
+        }
+
+       
+
 
         public int Div3()
         {
             int count = 0;
+            StaticClass.div = 3;
 
 
             for (int i = 0; i < array.Length - 1; i++)
             {
-                if (array[i] % 3 == 0 | array[i + 1]%3 == 0) {
+                if (array[i] % StaticClass.div == 0 | array[i + 1]% StaticClass.div == 0)   
+                {
                     count++;
                     Console.WriteLine($"Пара чисел {array[i]} и {array[i + 1]}");
                 }
@@ -69,9 +153,31 @@ namespace Homework_4
         }
 
 
+
         #endregion
 
         #region Private Methods
+
+        private int[] LoadArrayFromFile(string fileName)
+        {
+            if(!File.Exists(fileName))
+            {
+                throw new FileNotFoundException();
+            }
+            int[] buf = new int[1000];
+            StreamReader streamReader = new StreamReader(fileName);
+            //streamReader.EndOfStream
+            int count = 0   ;
+            while(!streamReader.EndOfStream)
+            {
+                buf[count] = int.Parse(streamReader.ReadLine());
+                count++;
+            }
+            int[] arr = new int[count];
+            Array.Copy(buf, arr, count);
+            streamReader.Close();
+            return arr;
+        }
 
     
 
@@ -102,12 +208,121 @@ namespace Homework_4
         {
             static void Main(string[] args)
             {
-               // int[] array = new int[] { 1, 3 , 4, 5 , 7, 8, 9 };
-                 
-                MyArray myArray = new MyArray(10, -10001, 10001); 
-                myArray.PrintArr();
-                myArray.Div3();
+
+
+            Console.Title = "Домашнее задание 4";
+                Console.WriteLine("Здравствуйте, Юзер! Добро пожаловать в меню выбора программ!");
+                Console.WriteLine("//////////////////////////////////////////////////////////////////////////");
+                Menu();
+                static void Menu()
+                {
+
+                    Console.WriteLine("Пожалуйста введите номер программы!");
+                    Console.WriteLine("\n/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                    Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine("\n/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                    Console.WriteLine("1:Реализация численного массива с рандомизатором");
+                    Console.WriteLine("2:Решение через статический класс");
+                    Console.WriteLine("3:Демонстрация работы библиотеки MyArray1");
+                   // Console.WriteLine("4:)");
+                   
+
+
+
+
+
+                    Console.WriteLine("\n/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                    Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine("\n/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+
+                    string menuSwitch = (Console.ReadLine());
+                    bool result = int.TryParse(menuSwitch, out var number);
+                    if (result == true)
+                    {
+                        switch (number)
+                        {
+                            case 1:
+                                RandomMassive();
+                                break;
+                            case 2:
+                                StaticMassive();
+                                break;
+                            case 3:
+                                DemoArrayLib();
+                                break;
+                            //case 4:
+                            //   ();
+                            //    break;
+
+                        }
+                    }
+
+                    else
+                        Console.WriteLine($"Ошибка! Пожалуйста введите числовое значение!");
+
+                }
+
+
+                //1 задача
+
                 
+
+                Console.WriteLine("\n/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine("\n/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                
+                static void RandomMassive()
+                {
+                    MyArray myArray = new MyArray(10, -10001, 10001);
+                    myArray.PrintArr();
+                    myArray.Div3();
+                }
+
+                static void StaticMassive()
+                {
+                    StaticClass.StaticArray(10, -10001, 10001);
+                    StaticClass.PrintArr();
+                    StaticClass.div = 3;
+                    StaticClass.DivX();
+                    MyArray myArray = new MyArray(10, -10001, 10001);
+                    // вывод из файла
+                    myArray = new MyArray(AppDomain.CurrentDomain.BaseDirectory + "TestFile.txt");
+                    Console.WriteLine($"Массив из файла TestFile.txt)");
+                    myArray.PrintArr();
+
+                }
+
+                static void DemoArrayLib()
+                {
+
+                    double count = 10;
+
+                    MyArray1 myArray = new MyArray1(count, 10, 3);
+
+                    myArray.PrintArr();
+                    myArray.Sum();
+                    Console.WriteLine($"{myArray.Sum()};");
+
+                    myArray.Multi();
+                    Console.WriteLine($"{myArray.Multi()};");
+
+                    myArray.Inverse();
+                    
+                    Console.WriteLine($"{myArray.Inverse()};");
+
+                    myArray.MaxCounter();
+                    Console.WriteLine($"{myArray.MaxCounter()};");
+                    
+
+
+
+                }
+
+
+
+
+
+
                 Console.ReadKey();
             }
         }
